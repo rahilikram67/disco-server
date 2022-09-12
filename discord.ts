@@ -1,7 +1,7 @@
 import discord from "discord.js"
 import { deleteAll } from "./commands/delete"
 import { sales } from "./commands/sales"
-import creds from "./credentials.json"
+
 export const discordServer = (blocklist: string[]) => {
     const client = new discord.Client({
         intents: [
@@ -24,5 +24,5 @@ export const discordServer = (blocklist: string[]) => {
         }
     })
     client.on("ready", () => console.log("Bot is ready!"))
-    client.login(creds.token)
+    client.login(process.env.TOKEN)
 }
