@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      .no-border{
+        border:none;
+        font-size: 20px;
+        pointer-events: none;
+      }
+      ul li{
+        list-style-type: none;
+      }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <header>Current blocked ids</header>
+        <p></p>
+        <ul>
+            <%for(let i=0;i<blocklist.length;i++){%>
+                <li>
+                    <form method="post" action="/del">
+                        <input class="no-border" type="text" value="<%=blocklist[i]%>" name="del">
+                        <button type="submit">delete</button>
+                    </form>
+                </li>
+                <%} %>
+        </ul>
+        </form>
+    </ul>
+    <form method="post" action="/">
+        <input pattern="\d+" type="text" required placeholder="Add new number" name="item">
+        <button>submit</button>
+    </form>
+
+</body>
+
+</html>
