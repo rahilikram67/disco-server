@@ -106,7 +106,6 @@ function embedder(obj: Prices, args: Args) {
             { name: "Low", value: format(`$${low}`), inline: true },
             { name: "High", value: format(`$${high}`), inline: true },
             { name: "Estimated Profit", value: format(`$${profit}`), inline: true },
-            { name: "-----------------", value: "\u200b" },
             { name: "Search info:", value: "\u200b" },
             { name: "Number of results", value: format(total_prices), inline: true },
             { name: "Total Sales", value: format(`$${sum}`), inline: true },
