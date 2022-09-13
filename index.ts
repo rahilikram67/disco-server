@@ -27,7 +27,7 @@ app.post("/del", (req, res) => {
     res.redirect("/")
 })
 
-const port = 80
+const port = process.env.PORT
 
 app.listen(port, () => console.log("listening on "+port))
 
