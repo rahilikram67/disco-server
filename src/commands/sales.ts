@@ -93,9 +93,9 @@ function embedder(obj: Prices, args: Args) {
     const { average, high, low, profit, sum, total_prices, total_pages } = obj
     return new EmbedBuilder()
         .setColor(0x0099FF)
-        .setAuthor({ name: "Chandi", iconURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-zMtEgd5Lava93Sl4SEEiST2GB-L5DdElsg&usqp=CAU" })
+        .setAuthor({ name: "Sales Bot", iconURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-zMtEgd5Lava93Sl4SEEiST2GB-L5DdElsg&usqp=CAU" })
         .setColor(0x0099FF)
-        .setTitle('Chandi Replying')
+        .setTitle('Sales Bot Replying')
         .setImage("https://png.pngitem.com/pimgs/s/71-710469_graph-png-download-image-business-growth-graph-transparent.png")
         .setTimestamp()
         .setDescription(`Bots calculations on prices `)
