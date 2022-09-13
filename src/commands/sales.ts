@@ -110,7 +110,7 @@ function embedder(obj: Prices, args: Args) {
             { name: "Number of results", value: format(total_prices), inline: true },
             { name: "Total Sales", value: format(`$${sum}`), inline: true },
             { name: "Page Limit", value: format(Number(args._page_len) || 0), inline: true },
-            { name: "Pages Inexed", value: format(total_pages), inline: true },
+            { name: "Pages Indexed", value: format(total_pages), inline: true },
         ])
 }
 
