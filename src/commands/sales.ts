@@ -2,6 +2,7 @@ import axios from "axios"
 import { EmbedBuilder, Message } from "discord.js"
 import * as cheerio from 'cheerio';
 import { compact } from "lodash"
+import * as blue from "bluebird"
 export async function sales(message: Message) {
     const matches = message.content.match(/\w+/g) || []
 
@@ -32,28 +33,29 @@ export async function sales(message: Message) {
     pages.shift() // we already fetched from first page
     const _prices = $(".s-item__price").toArray().map(el => getPrice(el, $))
 
-
+    const array_of_https = []
     for (let v = 0; v < all_pages_len - 1; v++) {
         if (page_len && (page_len - 2) < v) {
             console.log("stopping at page ", pages[v] - 1)
             break
         }
         console.log("at page ", pages[v])
-        try {
-            res = await axios.get(getURi(search, pages[v]), { headers: { "Content-Type": "text/html" } })
-        } catch (error) {
-            continue
-        }
+        array_of_https.push(
+            axios.get(getURi(search, pages[v]), { headers: { "Content-Type": "text/html" } }).catch(e => { })
+        )
+    }
 
-        $ = cheerio.load(res.data)
+    let http_res = await blue.Promise.all(array_of_https)
+
+    for (const v of http_res) {
+        if (!v?.data) continue
+        $ = cheerio.load(v.data)
         let arr = $(".s-item__price").toArray().map(el => getPrice(el, $))
         _prices.push(...arr)
-
     }
 
     _prices.sort()
     const prices = compact(_prices)
-
     const obj: Prices = {
         low: prices[0],
         high: prices.slice(-1)[0],
@@ -67,7 +69,6 @@ export async function sales(message: Message) {
     obj.total_prices = prices.length
     obj.average = Math.round(obj.sum / obj.total_prices)
     obj.profit = Number(getProfit(obj.average).toFixed(2))
-
     message.channel.send({
         embeds: [embedder(obj, { command, search, _page_len })]
     })
