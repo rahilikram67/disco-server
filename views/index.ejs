@@ -22,10 +22,10 @@
         <header>Current blocked ids</header>
         <p></p>
         <ul>
-            <%for(let i=0;i<blocklist.length;i++){%>
+            <%for(let i=0;i<allowlist.length;i++){%>
                 <li>
                     <form method="post" action="/del">
-                        <input class="no-border" type="text" value="<%=blocklist[i]%>" name="del">
+                        <input class="no-border" type="text" value="<%=allowlist[i]%>" name="del">
                         <button type="submit">delete</button>
                     </form>
                 </li>

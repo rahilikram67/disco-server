@@ -11,19 +11,19 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-const blocklist = [];
-(0, discord_1.discordServer)(blocklist);
+const allowlist = [];
+(0, discord_1.discordServer)(allowlist);
 app.get("/", (req, res) => {
     res.render("index", {
-        blocklist
+        allowlist
     });
 });
 app.post("/", (req, res) => {
-    blocklist.push(req.body.item);
+    allowlist.push(req.body.item);
     res.redirect("/");
 });
 app.post("/del", (req, res) => {
-    blocklist.splice(blocklist.indexOf(req.body.del), 1);
+    allowlist.splice(allowlist.indexOf(req.body.del), 1);
     res.redirect("/");
 });
 const port = process.env.PORT;

@@ -16,7 +16,7 @@ exports.discordServer = void 0;
 const discord_js_1 = __importDefault(require("discord.js"));
 const delete_1 = require("./commands/delete");
 const sales_1 = require("./commands/sales");
-const discordServer = (blocklist) => {
+const discordServer = (allowlist) => {
     const client = new discord_js_1.default.Client({
         intents: [
             discord_js_1.default.GatewayIntentBits.Guilds,
@@ -25,7 +25,7 @@ const discordServer = (blocklist) => {
         ],
     });
     client.on("messageCreate", (message) => __awaiter(void 0, void 0, void 0, function* () {
-        if (blocklist.includes(message.channelId))
+        if (allowlist.includes(message.channelId))
             return;
         switch (message.content.split(" ")[0]) {
             case "!deleteAll":

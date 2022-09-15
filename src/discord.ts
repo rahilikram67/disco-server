@@ -2,7 +2,7 @@ import discord from "discord.js"
 import { deleteAll } from "./commands/delete"
 import { sales } from "./commands/sales"
 
-export const discordServer = (blocklist: string[]) => {
+export const discordServer = (allowlist: string[]) => {
     const client = new discord.Client({
         intents: [
             discord.GatewayIntentBits.Guilds,
@@ -13,7 +13,7 @@ export const discordServer = (blocklist: string[]) => {
 
 
     client.on("messageCreate", async (message) => {
-        if (blocklist.includes(message.channelId)) return
+        if (!allowlist.includes(message.channelId)) return
         switch (message.content.split(" ")[0]) {
             case "!deleteAll":
                 deleteAll(message)
