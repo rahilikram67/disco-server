@@ -60,7 +60,7 @@ export async function sales(message: Message) {
     const obj: Prices = {
         low: low ? low : 0,
         high: high ? high : 0,
-        average: mean(prices),
+        average: Number(mean(prices).toFixed(2)),
         profit: 0,
         sum: sum(prices),
         total_prices: prices.length,
