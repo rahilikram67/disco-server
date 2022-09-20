@@ -57,6 +57,7 @@ export async function sales(message: Message) {
     const prices = compact(_prices)
     const low = min(prices)
     const high = max(prices)
+    
     const obj: Prices = {
         low: low ? low : 0,
         high: high ? high : 0,
