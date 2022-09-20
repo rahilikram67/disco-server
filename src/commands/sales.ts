@@ -1,7 +1,7 @@
 import axios from "axios"
 import { EmbedBuilder, Message } from "discord.js"
 import * as cheerio from 'cheerio';
-import { compact } from "lodash"
+import { compact, mean, max, min, sum } from "lodash"
 import * as blue from "bluebird"
 export async function sales(message: Message) {
     const matches = message.content.match(/\w+/g) || []
@@ -54,21 +54,23 @@ export async function sales(message: Message) {
         _prices.push(...arr)
     }
 
-    _prices.sort()
     const prices = compact(_prices)
+    const low = min(prices)
+    const high = max(prices)
     const obj: Prices = {
-        low: prices[0],
-        high: prices.slice(-1)[0],
-        average: 0,
+        low: low ? low : 0,
+        high: high ? high : 0,
+        average: mean(prices),
         profit: 0,
-        sum: 0,
-        total_prices: 0,
+        sum: sum(prices),
+        total_prices: prices.length,
         total_pages: all_pages_len ? all_pages_len : 1
     }
-    obj.sum = Math.round(prices.reduce((a, b) => a + b, 0))
-    obj.total_prices = prices.length
-    obj.average = Math.round(obj.sum / obj.total_prices)
+    
+    
+    
     obj.profit = Number(getProfit(obj.average).toFixed(2))
+    
     message.channel.send({
         embeds: [embedder(obj, { command, search, _page_len })]
     })
