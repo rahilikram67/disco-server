@@ -57,21 +57,22 @@ export async function sales(message: Message) {
     const prices = compact(_prices)
     const low = min(prices)
     const high = max(prices)
-    
+    const arr_len = prices.length
     const obj: Prices = {
         low: low ? low : 0,
         high: high ? high : 0,
         average: Number(mean(prices).toFixed(2)),
         profit: 0,
-        sum: sum(prices),
-        total_prices: prices.length,
+        sum: 0,
+        total_prices: arr_len,
         total_pages: all_pages_len ? all_pages_len : 1
     }
-    
-    
-    
+
+    obj.sum = obj.average * arr_len
+
+
     obj.profit = Number(getProfit(obj.average).toFixed(2))
-    
+
     message.channel.send({
         embeds: [embedder(obj, { command, search, _page_len })]
     })
